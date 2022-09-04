@@ -6,6 +6,10 @@ function M.setup()
 
   -- packer.nvim configuration
   local conf = {
+		profile = {
+			enable = true,
+			threshold = 0, -- the amount in ms that a plugins load time must be over for it to be included in the profile
+		},
     display = {
       open_fn = function()
         return require("packer.util").float { border = "rounded" }
@@ -17,6 +21,7 @@ function M.setup()
   -- Run PackerCompile if there are changes in this file
   local function packer_init()
     local fn = vim.fn
+		-- Will be installed under $XDG_DATA_HOME/site/pack/packer/start
     local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
     if fn.empty(fn.glob(install_path)) > 0 then
       packer_bootstrap = fn.system {
@@ -36,7 +41,7 @@ function M.setup()
   local function plugins(use)
     use { "wbthomason/packer.nvim" }
 
-    -- Colorscheme
+		-- Use the following colorscheme as default
     use {
       "sainnhe/everforest",
       config = function()
@@ -55,11 +60,92 @@ function M.setup()
     -- Git
     use {
       "TimUntersberger/neogit",
+			cmd = "Neogit",
       requires = "nvim-lua/plenary.nvim",
       config = function()
         require("config.neogit").setup()
       end,
     }
+
+		-- WhichKey
+		use {
+			 "folke/which-key.nvim",
+			 event = "VimEnter",
+			 config = function()
+				 require("config.whichkey").setup()
+			 end,
+		}
+
+		-- IndentLine
+		use {
+			"lukas-reineke/indent-blankline.nvim",
+			event = "BufReadPre",
+			config = function()
+				require("config.indentblankline").setup()
+			end,
+		}
+
+		-- Load only when require
+    use { "nvim-lua/plenary.nvim", module = "plenary" }
+
+    -- Better icons
+    use {
+      "kyazdani42/nvim-web-devicons",
+      module = "nvim-web-devicons",
+      config = function()
+        require("nvim-web-devicons").setup { default = true }
+      end,
+    }
+
+    -- Better Comment
+    use {
+      "numToStr/Comment.nvim",
+      opt = true,
+      keys = { "gc", "gcc", "gbc" },
+      config = function()
+        require("Comment").setup {}
+      end,
+    }
+
+    -- Easy hopping
+    use {
+      "phaazon/hop.nvim",
+      cmd = { "HopWord", "HopChar2" },
+      config = function()
+        require("hop").setup {}
+      end,
+    }
+		
+    -- Markdown
+    use {
+      "iamcco/markdown-preview.nvim",
+      run = function()
+        vim.fn["mkdp#util#install"]()
+      end,
+      ft = "markdown",
+      cmd = { "MarkdownPreview" },
+    }
+
+		-- Fancy Statusline
+		use {
+			"nvim-lualine/lualine.nvim",
+			event = "VimEnter",
+			config = function()
+			 require("config.lualine").setup()
+			end,
+			requires = { "nvim-web-devicons" },
+		}
+
+		-- Treesitter
+		use {
+			run = ":TSUpdate",
+			"nvim-treesitter/nvim-treesitter",
+			config = function()
+				require("config.treesitter").setup()
+			end,
+		}
+
+		----------------------------------------------------------
 
     if packer_bootstrap then
       print "Restart Neovim required after installation!"

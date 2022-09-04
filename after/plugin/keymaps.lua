@@ -25,16 +25,24 @@ keymap("v", ">", ">gv", default_opts)
 -- Paste over currently selected text without yanking it
 keymap("v", "p", '"_dP', default_opts)
 
--- Switch buffer
-keymap("n", "<A-h>", ":bprevious<CR>", default_opts)
-keymap("n", "<A-l>", ":bnext<CR>", default_opts)
-
 -- Cancel search highlighting with ESC
 keymap("n", "<ESC>", ":nohlsearch<Bar>:echo<CR>", default_opts)
 
 -- Move selected line / block of text in visual mode
 keymap("x", "K", ":move '<-2<CR>gv-gv", default_opts)
 keymap("x", "J", ":move '>+1<CR>gv-gv", default_opts)
+
+
+
+-- BUFFER RELATED
+
+-- Switch buffer
+keymap("n", "<A-h>", ":bprevious<CR>", default_opts)
+keymap("n", "<A-l>", ":bnext<CR>", default_opts)
+
+
+
+-- PANES RELATED ---
 
 -- Resizing panes
 --
@@ -43,8 +51,10 @@ keymap("n", "<C-Right>", ":vertical resize -1<CR>", default_opts)
 keymap("n", "<C-Up>", ":resize -1<CR>", default_opts)
 keymap("n", "<C-Down>", ":resize +1<CR>", default_opts)
 
+keymap("n", "<C-h>", "<C-w>h", default_opts)
+keymap("n", "<C-j>", "<C-w>j", default_opts)
+keymap("n", "<C-k>", "<C-w>k", default_opts)
+keymap("n", "<C-l>", "<C-w>l", default_opts)
+
 keymap("n", "<C-o>", ":only<CR>", default_opts)
-
-
-
 

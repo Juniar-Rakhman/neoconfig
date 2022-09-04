@@ -26,7 +26,7 @@ function M.setup()
     b = {
       name = "Buffer",
       c = { "<Cmd>bd!<Cr>", "Close current buffer" },
-      D = { "<Cmd>%bd|e#|bd#<Cr>", "Delete all buffers" },
+      D = { "<Cmd>%bd|e#|bd#<Cr>", "Close other buffers" },
     },
 
     z = {
