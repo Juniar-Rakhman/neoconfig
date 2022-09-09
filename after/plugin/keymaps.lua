@@ -33,13 +33,15 @@ keymap("x", "K", ":move '<-2<CR>gv-gv", default_opts)
 keymap("x", "J", ":move '>+1<CR>gv-gv", default_opts)
 
 
+-- COMPLETION RELATED
+
+
 
 -- BUFFER RELATED
 
 -- Switch buffer
 keymap("n", "<A-h>", ":bprevious<CR>", default_opts)
 keymap("n", "<A-l>", ":bnext<CR>", default_opts)
-
 
 
 -- PANES RELATED ---

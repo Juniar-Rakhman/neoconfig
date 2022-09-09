@@ -23,6 +23,14 @@ function M.setup()
     ["w"] = { "<cmd>update!<CR>", "Save" },
     ["q"] = { "<cmd>q!<CR>", "Quit" },
 
+    -- TODO add conditionals for each available plugins
+
+    e = {
+      name = "Explorer",
+      f = {"<cmd>Neotree float<cr>", "files"},
+      b = {"<cmd>Neotree buffers float<cr>", "buffers"},
+    },
+
     b = {
       name = "Buffer",
       c = { "<Cmd>bd!<Cr>", "Close current buffer" },

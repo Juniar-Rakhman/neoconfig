@@ -106,6 +106,7 @@ function M.setup()
         require("Comment").setup {}
       end,
     }
+	
 
     -- Easy hopping
     use {
@@ -133,8 +134,14 @@ function M.setup()
 			config = function()
 			 require("config.lualine").setup()
 			end,
-			requires = { "nvim-web-devicons" },
+			wants = { "nvim-web-devicons" },
 		}
+
+		-- TODO :https://github.com/SmiteshP/nvim-navic + winbar 
+		-- use {
+		-- 	"SmiteshP/nvim-navic",
+		-- 	requires = "neovim/nvim-lspconfig"
+		-- }
 
 		-- Treesitter
 		use {
@@ -145,6 +152,95 @@ function M.setup()
 			end,
 		}
 
+    -- User interface
+		-- Replace with ray-x navigator???
+    use {
+      "stevearc/dressing.nvim",
+      event = "BufEnter",
+      config = function()
+        require("dressing").setup {
+          select = {
+            backend = { "telescope", "fzf", "builtin" },
+          },
+        }
+      end,
+    }
+
+    -- File explorer
+    use {
+      "nvim-neo-tree/neo-tree.nvim",
+      cmd = "Neotree",
+      requires = { { "MunifTanjim/nui.nvim", module = "nui" } },
+      setup = function() vim.g.neo_tree_remove_legacy_commands = true end,
+      config = function() require "config.neo-tree" end,
+    }
+
+    -- Fuzzy finder
+    use {
+      "nvim-telescope/telescope.nvim",
+      cmd = "Telescope",
+      module = "telescope",
+      config = function() require "config.telescope" end,
+    }
+
+		-- Motions
+		use { "chaoren/vim-wordmotion", opt = true, fn = { "<Plug>WordMotion_w" } }
+
+		-- Completion
+    use {
+      "hrsh7th/nvim-cmp",
+      event = "InsertEnter",
+      opt = true,
+      config = function()
+        require("config.cmp").setup()
+      end,
+      wants = { "LuaSnip" },
+      requires = {
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-path",
+        "hrsh7th/cmp-nvim-lua",
+        "ray-x/cmp-treesitter",
+        "hrsh7th/cmp-cmdline",
+        "saadparwaiz1/cmp_luasnip",
+        "hrsh7th/cmp-calc",
+        "f3fora/cmp-spell",
+        "hrsh7th/cmp-emoji",
+        {
+          "L3MON4D3/LuaSnip",
+          wants = "friendly-snippets",
+          config = function()
+            require("config.luasnip").setup()
+          end,
+        },
+        "rafamadriz/friendly-snippets",
+        disable = false,
+      },
+    }
+
+    -- Auto pairs
+    use {
+      "windwp/nvim-autopairs",
+      wants = "nvim-treesitter",
+      module = { "nvim-autopairs.completion.cmp", "nvim-autopairs" },
+      config = function()
+        require("config.autopairs").setup()
+      end,
+    }
+
+    -- LSP
+    --use {
+    --  "neovim/nvim-lspconfig",
+    --  opt = true,
+    --  event = "BufReadPre",
+    --  wants = { "nvim-lsp-installer" },
+    --  config = function()
+    --    require("config.lsp").setup()
+    --  end,
+    --  requires = {
+    --    "williamboman/nvim-lsp-installer",
+    --  },
+    --}
+		
 		----------------------------------------------------------
 
     if packer_bootstrap then
