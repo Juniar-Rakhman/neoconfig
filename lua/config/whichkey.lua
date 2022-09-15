@@ -22,22 +22,15 @@ function M.setup()
   local mappings = {
     ["w"] = { "<cmd>update!<CR>", "Save" },
     ["q"] = { "<cmd>q!<CR>", "Quit" },
-
-    -- TODO add conditionals for each available plugins
-
-    e = {
-      name = "Explorer",
-      f = {"<cmd>Neotree float<cr>", "files"},
-      b = {"<cmd>Neotree buffers float<cr>", "buffers"},
-    },
+    ["e"] = { "<cmd>Neotree float<cr>", "File Explorer" },
 
     b = {
       name = "Buffer",
       c = { "<Cmd>bd!<Cr>", "Close current buffer" },
-      D = { "<Cmd>%bd|e#|bd#<Cr>", "Close other buffers" },
+      C = { "<Cmd>%bd|e#|bd#<Cr>", "Close other buffers" },
     },
 
-    z = {
+    p = {
       name = "Packer",
       c = { "<cmd>PackerCompile<cr>", "Compile" },
       i = { "<cmd>PackerInstall<cr>", "Install" },

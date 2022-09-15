@@ -2,10 +2,6 @@ local keymap = vim.api.nvim_set_keymap
 local default_opts = { noremap = true, silent = true }
 local expr_opts = { noremap = true, expr = true, silent = true }
 
--- Better escape using jk in insert and terminal mode
--- keymap("i", "jk", "<ESC>", default_opts)
--- keymap("t", "jk", "<C-\\><C-n>", default_opts)
-
 -- better bol and eol keys
 keymap("", "<S-h>", "^", default_opts)
 keymap("", "<S-l>", "$", default_opts)
@@ -36,7 +32,6 @@ keymap("x", "J", ":move '>+1<CR>gv-gv", default_opts)
 -- COMPLETION RELATED
 
 
-
 -- BUFFER RELATED
 
 -- Switch buffer
@@ -58,5 +53,5 @@ keymap("n", "<C-j>", "<C-w>j", default_opts)
 keymap("n", "<C-k>", "<C-w>k", default_opts)
 keymap("n", "<C-l>", "<C-w>l", default_opts)
 
-keymap("n", "<C-o>", ":only<CR>", default_opts)
+keymap("n", "<C-t>", ":only<CR>", default_opts)
 
