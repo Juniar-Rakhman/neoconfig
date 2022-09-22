@@ -42,7 +42,6 @@ keymap("n", "<A-l>", ":bnext<CR>", default_opts)
 -- PANES RELATED ---
 
 -- Resizing panes
---
 keymap("n", "<C-Left>", ":vertical resize +1<CR>", default_opts)
 keymap("n", "<C-Right>", ":vertical resize -1<CR>", default_opts)
 keymap("n", "<C-Up>", ":resize -1<CR>", default_opts)

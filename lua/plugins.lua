@@ -1,6 +1,14 @@
 local M = {}
 
 function M.setup()
+  -- Autocommand that reloads neovim whenever you save the plugins.lua file
+  vim.cmd [[
+    augroup packer_user_config
+      autocmd!
+      autocmd BufWritePost plugins.lua source <afile> | PackerSync
+    augroup end
+  ]]
+
   -- Indicate first time installation
   local packer_bootstrap = false
 
@@ -69,11 +77,11 @@ function M.setup()
 
 		-- WhichKey
 		use {
-			 "folke/which-key.nvim",
-			 event = "VimEnter",
-			 config = function()
-				 require("config.whichkey").setup()
-			 end,
+      "folke/which-key.nvim",
+      event = "VimEnter",
+      config = function()
+        require("config.whichkey").setup()
+      end,
 		}
 
 		-- IndentLine
@@ -81,7 +89,7 @@ function M.setup()
 			"lukas-reineke/indent-blankline.nvim",
 			event = "BufReadPre",
 			config = function()
-				require("config.indentblankline").setup()
+				require("config.indentblankline")
 			end,
 		}
 
@@ -106,7 +114,6 @@ function M.setup()
         require("Comment").setup {}
       end,
     }
-	
 
     -- Easy hopping
     use {
@@ -137,12 +144,6 @@ function M.setup()
 			wants = { "nvim-web-devicons" },
 		}
 
-		-- TODO :https://github.com/SmiteshP/nvim-navic + winbar 
-		-- use {
-		-- 	"SmiteshP/nvim-navic",
-		-- 	requires = "neovim/nvim-lspconfig"
-		-- }
-
 		-- Treesitter
 		use {
 			run = ":TSUpdate",
@@ -153,7 +154,6 @@ function M.setup()
 		}
 
     -- User interface
-		-- Replace with ray-x navigator???
     use {
       "stevearc/dressing.nvim",
       event = "BufEnter",
@@ -199,12 +199,12 @@ function M.setup()
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
         "hrsh7th/cmp-nvim-lua",
-        "ray-x/cmp-treesitter",
         "hrsh7th/cmp-cmdline",
-        "saadparwaiz1/cmp_luasnip",
-        "hrsh7th/cmp-calc",
-        "f3fora/cmp-spell",
         "hrsh7th/cmp-emoji",
+        "hrsh7th/cmp-calc",
+        "ray-x/cmp-treesitter",
+        "saadparwaiz1/cmp_luasnip",
+        "f3fora/cmp-spell",
         {
           "L3MON4D3/LuaSnip",
           wants = "friendly-snippets",
@@ -217,6 +217,9 @@ function M.setup()
       },
     }
 
+    -- LSP
+    
+
     -- Auto pairs
     use {
       "windwp/nvim-autopairs",
@@ -227,19 +230,9 @@ function M.setup()
       end,
     }
 
-    -- LSP
-    --use {
-    --  "neovim/nvim-lspconfig",
-    --  opt = true,
-    --  event = "BufReadPre",
-    --  wants = { "nvim-lsp-installer" },
-    --  config = function()
-    --    require("config.lsp").setup()
-    --  end,
-    --  requires = {
-    --    "williamboman/nvim-lsp-installer",
-    --  },
-    --}
+    use {
+      "gpanders/editorconfig.nvim"
+    }
 		
 		----------------------------------------------------------
 

@@ -42,6 +42,8 @@ opt.updatetime = 300 -- Length of time to wait before triggering the plugin
 opt.wrap = false -- Disable wrapping of lines longer than the width of window
 opt.writebackup = false -- Disable making a backup before overwriting a file
 
+-- AUTO COMMANDS
+
 -- Highlight on yank
 vim.cmd [[
   augroup YankHighlight
@@ -49,3 +51,4 @@ vim.cmd [[
     autocmd TextYankPost * silent! lua vim.highlight.on_yank()
   augroup end
 ]]
+
