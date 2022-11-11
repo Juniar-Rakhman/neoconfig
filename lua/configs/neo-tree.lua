@@ -32,7 +32,7 @@ neotree.setup {
     },
   },
   window = {
-    width = 25,
+    width = 50,
     mappings = {
       ["o"] = "open",
     },
@@ -60,6 +60,10 @@ neotree.setup {
   },
   event_handlers = {
     { event = "neo_tree_buffer_enter", handler = function(_) vim.opt_local.signcolumn = "auto" end },
+    {
+      event = "file_opened",
+      handler = function() require("neo-tree").close_all() end,
+    },
   },
 
 }

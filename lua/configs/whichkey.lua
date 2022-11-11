@@ -10,7 +10,10 @@ function M.setup()
     },
   }
 
-  local opts = {
+  whichkey.setup(conf)
+
+  -- Normal Mode --
+  local n_opts = {
     mode = "n", -- Normal mode
     prefix = "<leader>",
     buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
@@ -19,10 +22,10 @@ function M.setup()
     nowait = false, -- use `nowait` when creating keymaps
   }
 
-  local mappings = {
+  local n_mappings = {
     ["w"] = { "<cmd>update!<CR>", "Save" },
     ["q"] = { "<cmd>q!<CR>", "Quit" },
-    ["e"] = { "<cmd>Neotree float<cr>", "File Explorer" },
+    ["e"] = { "<cmd>Neotree<cr>", "File Explorer" },
 
     b = {
       name = "Buffer",
@@ -45,8 +48,9 @@ function M.setup()
     },
   }
 
-  whichkey.setup(conf)
-  whichkey.register(mappings, opts)
+  whichkey.register(n_mappings, n_opts)
+
+  -- Visual Mode --
 end
 
 return M

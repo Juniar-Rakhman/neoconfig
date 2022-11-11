@@ -61,7 +61,7 @@ function M.setup()
     use {
       "goolord/alpha-nvim",
       config = function()
-        require("config.alpha").setup()
+        require("configs.alpha").setup()
       end,
     }
 
@@ -71,7 +71,7 @@ function M.setup()
 			cmd = "Neogit",
       requires = "nvim-lua/plenary.nvim",
       config = function()
-        require("config.neogit").setup()
+        require("configs.neogit").setup()
       end,
     }
 
@@ -80,7 +80,7 @@ function M.setup()
       "folke/which-key.nvim",
       event = "VimEnter",
       config = function()
-        require("config.whichkey").setup()
+        require("configs.whichkey").setup()
       end,
 		}
 
@@ -89,11 +89,10 @@ function M.setup()
 			"lukas-reineke/indent-blankline.nvim",
 			event = "BufReadPre",
 			config = function()
-				require("config.indentblankline")
+				require("configs.indentblankline")
 			end,
 		}
 
-		-- Load only when require
     use { "nvim-lua/plenary.nvim", module = "plenary" }
 
     -- Better icons
@@ -139,7 +138,7 @@ function M.setup()
 			"nvim-lualine/lualine.nvim",
 			event = "VimEnter",
 			config = function()
-			 require("config.lualine").setup()
+			 require("configs.lualine").setup()
 			end,
 			wants = { "nvim-web-devicons" },
 		}
@@ -149,7 +148,7 @@ function M.setup()
 			run = ":TSUpdate",
 			"nvim-treesitter/nvim-treesitter",
 			config = function()
-				require("config.treesitter").setup()
+				require("configs.treesitter").setup()
 			end,
 		}
 
@@ -170,9 +169,9 @@ function M.setup()
     use {
       "nvim-neo-tree/neo-tree.nvim",
       cmd = "Neotree",
-      requires = { { "MunifTanjim/nui.nvim", module = "nui" } },
+      requires = { "MunifTanjim/nui.nvim", module = "nui" },
       setup = function() vim.g.neo_tree_remove_legacy_commands = true end,
-      config = function() require "config.neo-tree" end,
+      config = function() require "configs.neo-tree" end,
     }
 
     -- Fuzzy finder
@@ -180,7 +179,7 @@ function M.setup()
       "nvim-telescope/telescope.nvim",
       cmd = "Telescope",
       module = "telescope",
-      config = function() require "config.telescope" end,
+      config = function() require "configs.telescope" end,
     }
 
 		-- Motions
@@ -192,7 +191,7 @@ function M.setup()
       event = "InsertEnter",
       opt = true,
       config = function()
-        require("config.cmp").setup()
+        require("configs.cmp").setup()
       end,
       wants = { "LuaSnip" },
       requires = {
@@ -209,16 +208,18 @@ function M.setup()
           "L3MON4D3/LuaSnip",
           wants = "friendly-snippets",
           config = function()
-            require("config.luasnip").setup()
+            require("configs.luasnip").setup()
           end,
         },
         "rafamadriz/friendly-snippets",
-        disable = false,
       },
     }
 
-    -- LSP
-    
+    -- Formatting and linting
+    use {
+      "jose-elias-alvarez/null-ls.nvim",
+      event = { "BufRead", "BufNewFile" },
+    }
 
     -- Auto pairs
     use {
@@ -226,13 +227,15 @@ function M.setup()
       wants = "nvim-treesitter",
       module = { "nvim-autopairs.completion.cmp", "nvim-autopairs" },
       config = function()
-        require("config.autopairs").setup()
+        require("configs.autopairs").setup()
       end,
     }
 
-    use {
-      "gpanders/editorconfig.nvim"
-    }
+    -- LSP
+
+    -- Editor Config
+    use "gpanders/editorconfig.nvim" 
+    use "RRethy/vim-illuminate"
 		
 		----------------------------------------------------------
 
@@ -240,6 +243,7 @@ function M.setup()
       print "Restart Neovim required after installation!"
       require("packer").sync()
     end
+
   end
 
   packer_init()
